@@ -99,68 +99,6 @@
     STATE.stars = Math.max(0, (STATE.stars | 0) + (n | 0));
     $("#stars").textContent = String(STATE.stars);
     if (reason) $("#subline").textContent = reason;
-if (tool === "liner") {
-  const el = $("#glamLiner");
-  el.style.opacity = "1";
-  // color controls intensity
-  el.style.filter = `opacity(1)`;
-  el.style.setProperty("--liner", color);
-  el.style.background =
-    `radial-gradient(70px 18px at 36% 56%, ${color}, transparent 70%),
-     radial-gradient(70px 18px at 64% 56%, ${color}, transparent 70%)`;
-  STATE.glam.liner = color;
-
-  const d = $("#liner");
-  d.style.opacity = "1";
-  d.style.background =
-    `radial-gradient(60px 16px at 34% 62%, ${color}, transparent 70%),
-     radial-gradient(60px 16px at 66% 62%, ${color}, transparent 70%)`;
-}
-
-if (tool === "freckles") {
-  const el = $("#glamFreckles");
-  el.style.opacity = "1";
-  el.style.background =
-    `radial-gradient(circle at 40% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 44% 68%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 48% 60%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 60% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 56% 68%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 52% 60%, ${color} 0 2px, transparent 3px)`;
-  STATE.glam.freckles = color;
-
-  const d = $("#freckles");
-  d.style.opacity = "1";
-  d.style.background =
-    `radial-gradient(circle at 38% 64%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 42% 70%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 46% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 62% 64%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 58% 70%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 54% 62%, ${color} 0 2px, transparent 3px)`;
-}
-
-if (tool === "sparkles") {
-  const el = $("#glamSparkles");
-  el.style.opacity = "1";
-  el.style.background =
-    `radial-gradient(circle at 30% 28%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 70% 26%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 52% 44%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 34% 60%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 66% 62%, ${color} 0 2px, transparent 3px)`;
-  STATE.glam.sparkles = color;
-
-  const d = $("#faceSparkles");
-  d.style.opacity = "1";
-  d.style.background =
-    `radial-gradient(circle at 30% 30%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 70% 28%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 52% 46%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 34% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 66% 64%, ${color} 0 2px, transparent 3px)`;
-}
-
     saveState();
   }
 
@@ -274,13 +212,10 @@ if (tool === "sparkles") {
   function applyHair(key) {
     const h = HAIR_STYLES[key] || HAIR_STYLES.pony;
     const hair = $("#hair");
+    hair.className = `hair hair-${h.shape}`;
     hair.style.background = `linear-gradient(135deg, ${h.colorA}, ${h.colorB})`;
 
-    
-    // Apply a real style class so shapes can be richer
-    hair.classList.remove("hair-pony","hair-waves","hair-bob","hair-braids");
-    hair.classList.add(`hair-${h.shape}`);
-// Simple shape variations via border-radius + size
+    // Simple shape variations via border-radius + size
     if (h.shape === "pony") {
       hair.style.borderRadius = "120px 120px 90px 90px";
       hair.style.height = "110px";
@@ -482,11 +417,10 @@ if (tool === "sparkles") {
   const COLOR_SETS = {
     lips:   ["#ff4fd8","#fb7185","#f43f5e","#fbbf24","#a78bfa","#60a5fa"],
     blush:  ["rgba(255,79,216,.35)","rgba(251,113,133,.35)","rgba(251,191,36,.28)","rgba(167,139,250,.30)"],
-    shadow: ["rgba(167,139,250,.35)","rgba(96,165,250,.28)","rgba(52,211,153,.22)","rgba(251,191,36,.25)"]
-  ,
-    liner:  ["rgba(0,0,0,.10)","rgba(0,0,0,.14)","rgba(0,0,0,.18)"],
-    freckles:["rgba(120,70,40,.10)","rgba(120,70,40,.18)","rgba(120,70,40,.24)"],
-    sparkles:["rgba(255,255,255,.22)","rgba(255,79,216,.18)","rgba(96,165,250,.16)","rgba(251,191,36,.16)"]
+    shadow: ["rgba(167,139,250,.35)","rgba(96,165,250,.28)","rgba(52,211,153,.22)","rgba(251,191,36,.25)"],
+    liner:  ["rgba(0,0,0,.35)","rgba(0,0,0,.22)","rgba(96,165,250,.28)","rgba(167,139,250,.28)"],
+    freckles:["rgba(170,92,41,.35)","rgba(120,62,22,.30)","rgba(0,0,0,.18)"],
+    sparkles:["rgba(255,255,255,.95)","rgba(251,191,36,.90)","rgba(255,79,216,.85)","rgba(96,165,250,.85)"]
   };
 
   function renderSwatches(tool) {
@@ -557,68 +491,49 @@ if (tool === "sparkles") {
          radial-gradient(circle at 70% 60%, ${color}, transparent 60%)`;
     }
 
-    
-if (tool === "liner") {
-  const el = $("#glamLiner");
-  el.style.opacity = "1";
-  // color controls intensity
-  el.style.filter = `opacity(1)`;
-  el.style.setProperty("--liner", color);
-  el.style.background =
-    `radial-gradient(70px 18px at 36% 56%, ${color}, transparent 70%),
-     radial-gradient(70px 18px at 64% 56%, ${color}, transparent 70%)`;
-  STATE.glam.liner = color;
+    if (tool === "liner") {
+      $("#glamLiner").style.background = color;
+      $("#glamLiner").style.opacity = "1";
+      STATE.glam.liner = color;
+      const d = $("#liner");
+      d.classList.add("on");
+      d.style.background =
+        `radial-gradient(50px 18px at 38% 54%, ${color}, transparent 70%),
+         radial-gradient(50px 18px at 62% 54%, ${color}, transparent 70%)`;
+      d.style.opacity = "1";
+    }
 
-  const d = $("#liner");
-  d.style.opacity = "1";
-  d.style.background =
-    `radial-gradient(60px 16px at 34% 62%, ${color}, transparent 70%),
-     radial-gradient(60px 16px at 66% 62%, ${color}, transparent 70%)`;
-}
+    if (tool === "freckles") {
+      $("#glamFreckles").style.opacity = "1";
+      $("#glamFreckles").style.background = color;
+      STATE.glam.freckles = color;
+      const d = $("#freckles");
+      d.classList.add("on");
+      d.style.opacity = "1";
+      d.style.background =
+        `radial-gradient(circle at 40% 62%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 44% 68%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 48% 60%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 60% 62%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 56% 68%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 52% 60%, ${color} 0 2px, transparent 3px)`;
+    }
 
-if (tool === "freckles") {
-  const el = $("#glamFreckles");
-  el.style.opacity = "1";
-  el.style.background =
-    `radial-gradient(circle at 40% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 44% 68%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 48% 60%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 60% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 56% 68%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 52% 60%, ${color} 0 2px, transparent 3px)`;
-  STATE.glam.freckles = color;
+    if (tool === "sparkles") {
+      $("#glamSparkles").style.opacity = "1";
+      $("#glamSparkles").style.background = color;
+      STATE.glam.sparkles = color;
+      const d = $("#faceSparkles");
+      d.classList.add("on");
+      d.style.opacity = "1";
+      d.style.background =
+        `radial-gradient(circle at 30% 28%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 70% 26%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 52% 44%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 34% 60%, ${color} 0 2px, transparent 3px),
+         radial-gradient(circle at 66% 62%, ${color} 0 2px, transparent 3px)`;
+    }
 
-  const d = $("#freckles");
-  d.style.opacity = "1";
-  d.style.background =
-    `radial-gradient(circle at 38% 64%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 42% 70%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 46% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 62% 64%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 58% 70%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 54% 62%, ${color} 0 2px, transparent 3px)`;
-}
-
-if (tool === "sparkles") {
-  const el = $("#glamSparkles");
-  el.style.opacity = "1";
-  el.style.background =
-    `radial-gradient(circle at 30% 28%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 70% 26%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 52% 44%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 34% 60%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 66% 62%, ${color} 0 2px, transparent 3px)`;
-  STATE.glam.sparkles = color;
-
-  const d = $("#faceSparkles");
-  d.style.opacity = "1";
-  d.style.background =
-    `radial-gradient(circle at 30% 30%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 70% 28%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 52% 46%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 34% 62%, ${color} 0 2px, transparent 3px),
-     radial-gradient(circle at 66% 64%, ${color} 0 2px, transparent 3px)`;
-}
 
     saveState();
   }
@@ -640,13 +555,19 @@ if (tool === "sparkles") {
   function setupGlam() {
     setTool(STATE.glam.tool || "lips");
 
-    // restore saved glam colors
+
+    // restore saved makeup onto the face preview + doll
     if (STATE.glam.lips) applyGlam("lips", STATE.glam.lips);
     if (STATE.glam.blush) applyGlam("blush", STATE.glam.blush);
     if (STATE.glam.shadow) applyGlam("shadow", STATE.glam.shadow);
     if (STATE.glam.liner) applyGlam("liner", STATE.glam.liner);
     if (STATE.glam.freckles) applyGlam("freckles", STATE.glam.freckles);
     if (STATE.glam.sparkles) applyGlam("sparkles", STATE.glam.sparkles);
+
+    // restore saved glam colors
+    if (STATE.glam.lips) applyGlam("lips", STATE.glam.lips);
+    if (STATE.glam.blush) applyGlam("blush", STATE.glam.blush);
+    if (STATE.glam.shadow) applyGlam("shadow", STATE.glam.shadow);
 
     $$(".toolBtn").forEach(b => {
       b.addEventListener("click", () => {
@@ -666,9 +587,6 @@ if (tool === "sparkles") {
       applyGlam("lips", lips);
       applyGlam("blush", blush);
       applyGlam("shadow", shadow);
-      if (Math.random() < 0.65) applyGlam("liner", pick(COLOR_SETS.liner));
-      if (Math.random() < 0.55) applyGlam("freckles", pick(COLOR_SETS.freckles));
-      if (Math.random() < 0.70) applyGlam("sparkles", pick(COLOR_SETS.sparkles));
       addStars(2, "Random glam! ⭐⭐");
       setGlamMsg("Random glam created!");
       speak("Random glam created!");
@@ -690,11 +608,11 @@ if (tool === "sparkles") {
       $("#glamLiner").style.opacity = "0";
       $("#glamFreckles").style.opacity = "0";
       $("#glamSparkles").style.opacity = "0";
-      $("#liner").style.opacity = "0";
-      $("#freckles").style.opacity = "0";
-      $("#faceSparkles").style.opacity = "0";
       $("#lip").style.opacity = "0";
       $("#shadow").style.opacity = "0";
+      $("#liner").style.opacity = "0"; $("#liner").classList.remove("on");
+      $("#freckles").style.opacity = "0"; $("#freckles").classList.remove("on");
+      $("#faceSparkles").style.opacity = "0"; $("#faceSparkles").classList.remove("on");
       $("#blush").style.opacity = "0";
       addStars(0, "Cleared glam.");
       setGlamMsg("Cleared. Try new colors!");
@@ -724,9 +642,6 @@ if (tool === "sparkles") {
       if (g.lips) applyGlam("lips", g.lips);
       if (g.blush) applyGlam("blush", g.blush);
       if (g.shadow) applyGlam("shadow", g.shadow);
-      if (g.liner) applyGlam("liner", g.liner);
-      if (g.freckles) applyGlam("freckles", g.freckles);
-      if (g.sparkles) applyGlam("sparkles", g.sparkles);
       setTool(g.tool || "lips");
       addStars(1, "Loaded glam! ⭐");
       setGlamMsg("Loaded saved glam!");
@@ -953,16 +868,6 @@ if (tool === "sparkles") {
      ========================================================= */
   const STICKERS = ["💖","🌸","🦄","🎀","👑","✨","🌈","🧸","🐱","🐶","🍓","🧁","⭐","💎","🪄","🩷"];
 
-function applyRoomBg(key) {
-  const room = $("#room");
-  room.classList.remove("bg-look1","bg-look2","bg-look3");
-  const k = key || "look1";
-  room.classList.add(`bg-${k}`);
-  STATE.stickers.bg = k;
-  saveState();
-}
-
-
   function renderStickerTray() {
     const tray = $("#stickerTray");
     tray.innerHTML = "";
@@ -1043,15 +948,24 @@ function applyRoomBg(key) {
   function setupStickerRoom() {
     renderStickerTray();
 
-    // Background chooser
-    applyRoomBg(STATE.stickers.bg || "look1");
-    $$("[data-room-bg]").forEach(b => {
-      b.addEventListener("click", () => {
+    // Room background picker
+    function setRoomBg(key) {
+      const k = key || "look1";
+      room.style.backgroundImage = `url(./assets_journey/images_journey/${k}.jpg)`;
+      STATE.stickers.bg = k;
+      saveState();
+    }
+    setRoomBg(STATE.stickers.bg || "look1");
+
+    $$("[data-room-bg]").forEach(btn => {
+      btn.addEventListener("click", () => {
         beep("tap");
-        applyRoomBg(b.dataset.roomBg);
-        $("#stickerMsg").textContent = "Background changed! Keep decorating!";
+        setRoomBg(btn.dataset.roomBg);
+        setMissionDone("stickers", true);
+        $("#stickerMsg").textContent = "Background changed! Keep decorating 💖";
       });
     });
+
 
     const room = $("#room");
     room.addEventListener("dragover", (ev) => ev.preventDefault());
