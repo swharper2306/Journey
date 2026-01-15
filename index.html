@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Journey’s Sparkle Studio ✨</title>
+  <meta name="description" content="Journey’s Sparkle Studio — dress up, glam makeup, brick builder, sticker room, missions & trophies!" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <header class="top">
+    <div class="brand">
+      <div class="emoji">✨</div>
+      <div>
+        <div class="title">Journey’s Sparkle Studio</div>
+        <div class="sub" id="subline">Loading sparkles…</div>
+      </div>
+    </div>
+
+    <div class="hud">
+      <button id="soundBtn" class="chip">🔊 Sound: ON</button>
+      <button id="ttsBtn" class="chip">🗣️ Read: ON</button>
+      <div class="scoreBox">⭐ <span id="stars">0</span></div>
+      <div class="scoreBox">🏅 <span id="badges">0</span></div>
+      <button id="resetAll" class="chip danger">♻️ Reset</button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Studio tabs">
+    <button class="tab active" data-tab="dress">👗 Dress Up</button>
+    <button class="tab" data-tab="glam">💄 Glam</button>
+    <button class="tab" data-tab="bricks">🧱 Bricks</button>
+    <button class="tab" data-tab="stickers">🧸 Stickers</button>
+    <button class="tab" data-tab="missions">🎯 Missions</button>
+    <button class="tab" data-tab="trophy">🏆 Trophies</button>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- =========================
+         DRESS UP
+         ========================= -->
+    <section class="panel active" id="tab-dress">
+      <div class="panelHead">
+        <h2>Dress Up Designer</h2>
+        <div class="panelHint">Tap to mix outfits + earn ⭐</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card arenaCard">
+          <div class="dollStage" id="dollStage" aria-label="Dress up stage">
+            <div class="sparkleDots" aria-hidden="true"></div>
+
+            <!-- Doll (simple + cute, all CSS) -->
+            <div class="doll" id="doll" aria-label="Journey's character">
+              <div class="hair" id="hair"></div>
+              <div class="head">
+                <div class="eyes"></div>
+                <div class="mouth"></div>
+                <div class="blush" id="blush"></div>
+                <div class="lip" id="lip"></div>
+                <div class="shadow" id="shadow"></div>
+              </div>
+
+              <div class="body">
+                <div class="necklace" id="necklace"></div>
+                <div class="topWear" id="topWear"></div>
+                <div class="skirtWear" id="skirtWear"></div>
+                <div class="belt" id="belt"></div>
+              </div>
+
+              <div class="legs">
+                <div class="shoe shoeL" id="shoeL"></div>
+                <div class="shoe shoeR" id="shoeR"></div>
+              </div>
+
+              <div class="accessory crown" id="crown" aria-hidden="true"></div>
+              <div class="accessory glasses" id="glasses" aria-hidden="true"></div>
+              <div class="accessory wand" id="wand" aria-hidden="true"></div>
+              <div class="accessory bag" id="bag" aria-hidden="true"></div>
+            </div>
+
+            <!-- Pop message -->
+            <div class="popMsg" id="dressMsg">Pick hair + outfit + accessories!</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Style Controls</h3>
+
+          <div class="controlBlock">
+            <div class="controlTitle">Hair</div>
+            <div class="btnRow">
+              <button class="btn" data-hair="pony">🐴 Ponytail</button>
+              <button class="btn" data-hair="waves">🌊 Waves</button>
+              <button class="btn" data-hair="bob">✨ Bob</button>
+              <button class="btn" data-hair="braids">🎀 Braids</button>
+            </div>
+          </div>
+
+          <div class="controlBlock">
+            <div class="controlTitle">Outfit</div>
+            <div class="btnRow">
+              <button class="btn" data-outfit="party">🎉 Party Dress</button>
+              <button class="btn" data-outfit="sporty">🏃 Sporty Set</button>
+              <button class="btn" data-outfit="princess">👑 Princess</button>
+              <button class="btn" data-outfit="lego">🧱 Builder</button>
+            </div>
+          </div>
+
+          <div class="controlBlock">
+            <div class="controlTitle">Shoes</div>
+            <div class="btnRow">
+              <button class="btn" data-shoes="sneakers">👟 Sneakers</button>
+              <button class="btn" data-shoes="heels">👠 Heels</button>
+              <button class="btn" data-shoes="boots">🥾 Boots</button>
+              <button class="btn" data-shoes="flats">🥿 Flats</button>
+            </div>
+          </div>
+
+          <div class="controlBlock">
+            <div class="controlTitle">Accessories (toggle)</div>
+            <div class="btnRow">
+              <button class="btn" data-acc="crown">👑 Crown</button>
+              <button class="btn" data-acc="glasses">🕶️ Glasses</button>
+              <button class="btn" data-acc="wand">🪄 Wand</button>
+              <button class="btn" data-acc="bag">👜 Bag</button>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <button class="btn primary" id="randomLook">🎲 Random Look</button>
+            <button class="btn" id="saveLook">💾 Save Look</button>
+            <button class="btn" id="loadLook">📂 Load Look</button>
+            <button class="btn" id="dressRead">🔈 Read</button>
+          </div>
+
+          <div class="note" id="dressNote">Tip: Try Princess + Crown + Wand ✨</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         GLAM
+         ========================= -->
+    <section class="panel" id="tab-glam">
+      <div class="panelHead">
+        <h2>Glam Makeup Palette</h2>
+        <div class="panelHint">Tap a tool, then tap a color 💖</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card arenaCard">
+          <div class="glamStage">
+            <div class="glamFace">
+              <div class="glamEyes"></div>
+              <div class="glamCheeks" id="glamCheeks"></div>
+              <div class="glamLips" id="glamLips"></div>
+              <div class="glamShadow" id="glamShadow"></div>
+            </div>
+            <div class="popMsg" id="glamMsg">Pick lipstick 💄, blush 😊, or eyeshadow ✨</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Makeup Tools</h3>
+          <div class="row">
+            <button class="btn toolBtn active" data-tool="lips">💄 Lipstick</button>
+            <button class="btn toolBtn" data-tool="blush">😊 Blush</button>
+            <button class="btn toolBtn" data-tool="shadow">✨ Eyeshadow</button>
+          </div>
+
+          <div class="controlBlock" style="margin-top:12px;">
+            <div class="controlTitle">Colors</div>
+            <div class="swatches" id="swatches">
+              <!-- JS fills swatches -->
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <button class="btn primary" id="glamRandom">🎲 Random Glam</button>
+            <button class="btn" id="glamClear">🧼 Clear</button>
+            <button class="btn" id="glamSave">💾 Save</button>
+            <button class="btn" id="glamLoad">📂 Load</button>
+            <button class="btn" id="glamRead">🔈 Read</button>
+          </div>
+
+          <div class="note" id="glamNote">Pro tip: Sparkly eyeshadow + pink lipstick 💕</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         BRICKS
+         ========================= -->
+    <section class="panel" id="tab-bricks">
+      <div class="panelHead">
+        <h2>Brick Builder</h2>
+        <div class="panelHint">Tap blocks to place them. Build tall towers!</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <div class="row">
+            <button class="btn primary" id="brickModePlace">🧱 Place</button>
+            <button class="btn" id="brickModeErase">🧽 Erase</button>
+            <button class="btn" id="brickClear">♻️ Clear</button>
+            <button class="btn" id="brickGoal">🎯 New Goal</button>
+            <button class="btn" id="brickRead">🔈 Read</button>
+          </div>
+
+          <div class="statsRow" style="margin-top:12px;">
+            <div class="pill">🧱 Blocks: <span id="brickCount">0</span></div>
+            <div class="pill">🏗️ Tallest: <span id="brickTallest">0</span></div>
+            <div class="pill">🎯 Goal: <span id="brickGoalText">Tower</span></div>
+          </div>
+
+          <div class="controlBlock" style="margin-top:12px;">
+            <div class="controlTitle">Block Color</div>
+            <div class="swatches small" id="brickSwatches"></div>
+          </div>
+
+          <div class="note" id="brickMsg">Tap squares to build. Make a tall tower! 🏰</div>
+        </div>
+
+        <div class="card arenaCard">
+          <div class="brickBoardWrap">
+            <div class="brickBoard" id="brickBoard" aria-label="Brick board"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         STICKERS
+         ========================= -->
+    <section class="panel" id="tab-stickers">
+      <div class="panelHead">
+        <h2>Sticker Room</h2>
+        <div class="panelHint">Drag stickers onto the room 🧸</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <div class="row">
+            <button class="btn primary" id="stickerSave">💾 Save Room</button>
+            <button class="btn" id="stickerLoad">📂 Load Room</button>
+            <button class="btn" id="stickerClear">♻️ Clear</button>
+            <button class="btn" id="stickerRead">🔈 Read</button>
+          </div>
+
+          <div class="statsRow" style="margin-top:12px;">
+            <div class="pill">🧸 Stickers: <span id="stickerCount">0</span></div>
+            <div class="pill">⭐ Earned: <span id="stickerStars">0</span></div>
+          </div>
+
+          <div class="controlBlock" style="margin-top:12px;">
+            <div class="controlTitle">Sticker Tray (drag onto room)</div>
+            <div class="stickerTray" id="stickerTray" aria-label="Sticker tray">
+              <!-- JS fills stickers -->
+            </div>
+          </div>
+
+          <div class="note" id="stickerMsg">Drag stickers onto the room. Decorate it your way!</div>
+        </div>
+
+        <div class="card arenaCard">
+          <div class="room" id="room" aria-label="Sticker room">
+            <div class="roomHeader">Journey’s Room 💖</div>
+            <div class="roomFloor"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         MISSIONS
+         ========================= -->
+    <section class="panel" id="tab-missions">
+      <div class="panelHead">
+        <h2>Mission Board</h2>
+        <div class="panelHint">Complete missions to unlock rewards 🏅</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Journey’s Missions</h3>
+          <div class="note" id="missionMsg">Complete missions to unlock rewards!</div>
+          <div id="missionList" class="missionList"></div>
+
+          <div class="row" style="margin-top:12px;">
+            <button class="btn" id="missionRead">🔈 Read Missions</button>
+            <button class="btn danger" id="missionReset">♻️ Reset Missions</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>How to win</h3>
+          <ul class="list">
+            <li>👗 Make fun outfits and save a look</li>
+            <li>💄 Create a glam style (lip + blush + shadow)</li>
+            <li>🧱 Build a tower and hit goals</li>
+            <li>🧸 Decorate the room with stickers</li>
+          </ul>
+          <div class="note">This makes it feel like a real “game” with goals!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         TROPHIES
+         ========================= -->
+    <section class="panel" id="tab-trophy">
+      <div class="panelHead">
+        <h2>Trophy Room</h2>
+        <div class="panelHint">Badges unlock as Journey plays ✨</div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>Badges</h3>
+          <div class="badgeGrid" id="badgeGrid"></div>
+          <div class="note">Badges save on this device (so it remembers Journey).</div>
+        </div>
+
+        <div class="card">
+          <h3>What’s inside?</h3>
+          <ul class="list">
+            <li>👗 Dress Up: hair, outfits, shoes, accessories</li>
+            <li>💄 Glam: lipstick, blush, eyeshadow</li>
+            <li>🧱 Bricks: build + erase + goals</li>
+            <li>🧸 Stickers: drag and decorate a room</li>
+            <li>🎯 Missions: complete goals for ⭐ and 🏅</li>
+          </ul>
+
+          <div class="note">Made just for Journey 💖</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">Made for Journey ✨ — Sparkle Studio Edition</footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
