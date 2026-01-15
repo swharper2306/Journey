@@ -1005,3 +1005,61 @@ body.disco{
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/* =========================================================
+   JOURNEY ANCHOR FIX — prevents model shifting
+   ========================================================= */
+
+/* Center all doll parts safely */
+.hair,
+.head,
+.eyes,
+.mouth,
+.blush,
+.lip,
+.shadow,
+.body,
+.legs,
+.necklace,
+.popMsg{
+  transform: translateX(-50%);
+}
+
+/* Glam face anchoring */
+.glamEyes,
+.glamCheeks,
+.glamLips,
+.glamShadow{
+  transform: translateX(-50%);
+}
+
+/* ---------- ACCESSORY FIX ---------- */
+/* Preserve base transform and only scale */
+.accessory{
+  position:absolute;
+  opacity:0;
+  --accScale:.95;
+  --accTransform: translateX(-50%);
+  transform: var(--accTransform) scale(var(--accScale));
+  transition: opacity .12s ease, transform .12s ease;
+  pointer-events:none;
+}
+.accessory.on{
+  opacity:1;
+  --accScale:1;
+}
+
+/* Individual accessory anchors */
+.crown{
+  --accTransform: translateX(-50%);
+}
+.glasses{
+  --accTransform: translateX(-50%);
+}
+.wand{
+  --accTransform: rotate(-20deg);
+}
+.bag{
+  --accTransform: none;
+}
+
