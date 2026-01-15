@@ -58,7 +58,13 @@
             <div class="doll" id="doll" aria-label="Journey's character">
               <div class="hair" id="hair"></div>
               <div class="head">
-                <div class="eyes"></div>
+                <div class="hairline" aria-hidden="true"></div>
+<div class="brows" aria-hidden="true"></div>
+<div class="lashes" aria-hidden="true"></div>
+<div class="freckles" id="freckles" aria-hidden="true"></div>
+<div class="liner" id="liner" aria-hidden="true"></div>
+<div class="sparkles" id="faceSparkles" aria-hidden="true"></div>
+<div class="eyes"></div>
                 <div class="mouth"></div>
                 <div class="blush" id="blush"></div>
                 <div class="lip" id="lip"></div>
@@ -156,7 +162,13 @@
         <div class="card arenaCard">
           <div class="glamStage">
             <div class="glamFace">
-              <div class="glamEyes"></div>
+              <div class="glamHairline" aria-hidden="true"></div>
+<div class="glamBrows" aria-hidden="true"></div>
+<div class="glamLashes" aria-hidden="true"></div>
+<div class="glamFreckles" id="glamFreckles" aria-hidden="true"></div>
+<div class="glamLiner" id="glamLiner" aria-hidden="true"></div>
+<div class="glamSparkles" id="glamSparkles" aria-hidden="true"></div>
+<div class="glamEyes"></div>
               <div class="glamCheeks" id="glamCheeks"></div>
               <div class="glamLips" id="glamLips"></div>
               <div class="glamShadow" id="glamShadow"></div>
@@ -171,7 +183,10 @@
             <button class="btn toolBtn active" data-tool="lips">💄 Lipstick</button>
             <button class="btn toolBtn" data-tool="blush">😊 Blush</button>
             <button class="btn toolBtn" data-tool="shadow">✨ Eyeshadow</button>
-          </div>
+                      <button class="btn toolBtn" data-tool="liner">🖊️ Eyeliner</button>
+            <button class="btn toolBtn" data-tool="freckles">🍪 Freckles</button>
+            <button class="btn toolBtn" data-tool="sparkles">💎 Sparkles</button>
+</div>
 
           <div class="controlBlock" style="margin-top:12px;">
             <div class="controlTitle">Colors</div>
@@ -256,6 +271,18 @@
             <div class="pill">🧸 Stickers: <span id="stickerCount">0</span></div>
             <div class="pill">⭐ Earned: <span id="stickerStars">0</span></div>
           </div>
+
+          <div class="controlBlock" style="margin-top:12px;">
+            <div class="controlTitle">Sticker Tray
+
+<div class="controlBlock" style="margin-top:12px;">
+  <div class="controlTitle">Room Background</div>
+  <div class="btnRow">
+    <button class="btn" data-room-bg="look1">🌸 Cozy</button>
+    <button class="btn" data-room-bg="look2">🌈 Play</button>
+    <button class="btn" data-room-bg="look3">✨ Dream</button>
+  </div>
+</div>
 
           <div class="controlBlock" style="margin-top:12px;">
             <div class="controlTitle">Sticker Tray (drag onto room)</div>
