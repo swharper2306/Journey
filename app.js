@@ -88,9 +88,9 @@
     badges: {},
     missions: {},
     dress: { hair: "pony", outfit: "party", shoes: "sneakers", acc: { crown:false, glasses:false, wand:false, bag:false } },
-    glam: { tool: "lips", lips: null, blush: null, shadow: null, liner: null, freckles: null, sparkles: null },
+    glam: { tool: "lips", lips: null, blush: null, shadow: null },
     bricks: { mode: "place", color: "#ff4fd8", grid: Array(12*12).fill(null), goal: "Tower", tallest: 0 },
-    stickers: { placed: [], bg: "look1" }
+    stickers: { placed: [] }
   });
 
   function saveState() { store.set("journey_state", STATE); }
@@ -212,7 +212,6 @@
   function applyHair(key) {
     const h = HAIR_STYLES[key] || HAIR_STYLES.pony;
     const hair = $("#hair");
-    hair.className = `hair hair-${h.shape}`;
     hair.style.background = `linear-gradient(135deg, ${h.colorA}, ${h.colorB})`;
 
     // Simple shape variations via border-radius + size
@@ -417,10 +416,7 @@
   const COLOR_SETS = {
     lips:   ["#ff4fd8","#fb7185","#f43f5e","#fbbf24","#a78bfa","#60a5fa"],
     blush:  ["rgba(255,79,216,.35)","rgba(251,113,133,.35)","rgba(251,191,36,.28)","rgba(167,139,250,.30)"],
-    shadow: ["rgba(167,139,250,.35)","rgba(96,165,250,.28)","rgba(52,211,153,.22)","rgba(251,191,36,.25)"],
-    liner:  ["rgba(0,0,0,.35)","rgba(0,0,0,.22)","rgba(96,165,250,.28)","rgba(167,139,250,.28)"],
-    freckles:["rgba(170,92,41,.35)","rgba(120,62,22,.30)","rgba(0,0,0,.18)"],
-    sparkles:["rgba(255,255,255,.95)","rgba(251,191,36,.90)","rgba(255,79,216,.85)","rgba(96,165,250,.85)"]
+    shadow: ["rgba(167,139,250,.35)","rgba(96,165,250,.28)","rgba(52,211,153,.22)","rgba(251,191,36,.25)"]
   };
 
   function renderSwatches(tool) {
@@ -491,50 +487,6 @@
          radial-gradient(circle at 70% 60%, ${color}, transparent 60%)`;
     }
 
-    if (tool === "liner") {
-      $("#glamLiner").style.background = color;
-      $("#glamLiner").style.opacity = "1";
-      STATE.glam.liner = color;
-      const d = $("#liner");
-      d.classList.add("on");
-      d.style.background =
-        `radial-gradient(50px 18px at 38% 54%, ${color}, transparent 70%),
-         radial-gradient(50px 18px at 62% 54%, ${color}, transparent 70%)`;
-      d.style.opacity = "1";
-    }
-
-    if (tool === "freckles") {
-      $("#glamFreckles").style.opacity = "1";
-      $("#glamFreckles").style.background = color;
-      STATE.glam.freckles = color;
-      const d = $("#freckles");
-      d.classList.add("on");
-      d.style.opacity = "1";
-      d.style.background =
-        `radial-gradient(circle at 40% 62%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 44% 68%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 48% 60%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 60% 62%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 56% 68%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 52% 60%, ${color} 0 2px, transparent 3px)`;
-    }
-
-    if (tool === "sparkles") {
-      $("#glamSparkles").style.opacity = "1";
-      $("#glamSparkles").style.background = color;
-      STATE.glam.sparkles = color;
-      const d = $("#faceSparkles");
-      d.classList.add("on");
-      d.style.opacity = "1";
-      d.style.background =
-        `radial-gradient(circle at 30% 28%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 70% 26%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 52% 44%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 34% 60%, ${color} 0 2px, transparent 3px),
-         radial-gradient(circle at 66% 62%, ${color} 0 2px, transparent 3px)`;
-    }
-
-
     saveState();
   }
 
@@ -554,15 +506,6 @@
 
   function setupGlam() {
     setTool(STATE.glam.tool || "lips");
-
-
-    // restore saved makeup onto the face preview + doll
-    if (STATE.glam.lips) applyGlam("lips", STATE.glam.lips);
-    if (STATE.glam.blush) applyGlam("blush", STATE.glam.blush);
-    if (STATE.glam.shadow) applyGlam("shadow", STATE.glam.shadow);
-    if (STATE.glam.liner) applyGlam("liner", STATE.glam.liner);
-    if (STATE.glam.freckles) applyGlam("freckles", STATE.glam.freckles);
-    if (STATE.glam.sparkles) applyGlam("sparkles", STATE.glam.sparkles);
 
     // restore saved glam colors
     if (STATE.glam.lips) applyGlam("lips", STATE.glam.lips);
@@ -599,20 +542,11 @@
       STATE.glam.lips = null;
       STATE.glam.blush = null;
       STATE.glam.shadow = null;
-      STATE.glam.liner = null;
-      STATE.glam.freckles = null;
-      STATE.glam.sparkles = null;
       $("#glamLips").style.opacity = "0";
       $("#glamCheeks").style.opacity = "0";
       $("#glamShadow").style.opacity = "0";
-      $("#glamLiner").style.opacity = "0";
-      $("#glamFreckles").style.opacity = "0";
-      $("#glamSparkles").style.opacity = "0";
       $("#lip").style.opacity = "0";
       $("#shadow").style.opacity = "0";
-      $("#liner").style.opacity = "0"; $("#liner").classList.remove("on");
-      $("#freckles").style.opacity = "0"; $("#freckles").classList.remove("on");
-      $("#faceSparkles").style.opacity = "0"; $("#faceSparkles").classList.remove("on");
       $("#blush").style.opacity = "0";
       addStars(0, "Cleared glam.");
       setGlamMsg("Cleared. Try new colors!");
@@ -947,25 +881,6 @@
 
   function setupStickerRoom() {
     renderStickerTray();
-
-    // Room background picker
-    function setRoomBg(key) {
-      const k = key || "look1";
-      room.style.backgroundImage = `url(./assets_journey/images_journey/${k}.jpg)`;
-      STATE.stickers.bg = k;
-      saveState();
-    }
-    setRoomBg(STATE.stickers.bg || "look1");
-
-    $$("[data-room-bg]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        beep("tap");
-        setRoomBg(btn.dataset.roomBg);
-        setMissionDone("stickers", true);
-        $("#stickerMsg").textContent = "Background changed! Keep decorating 💖";
-      });
-    });
-
 
     const room = $("#room");
     room.addEventListener("dragover", (ev) => ev.preventDefault());
